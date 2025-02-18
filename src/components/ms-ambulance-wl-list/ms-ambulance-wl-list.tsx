@@ -1,7 +1,4 @@
 import { Component, h } from '@stencil/core';
-import '@material/web/list/list';
-import '@material/web/list/list-item';
-import '@material/web/icon/icon';
 
 @Component({
   tag: 'ms-ambulance-wl-list',
