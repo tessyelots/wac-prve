@@ -7,6 +7,7 @@ import { AmbulanceWaitingListApi, WaitingListEntry, Configuration } from '../../
   styleUrl: 'ms-ambulance-wl-list.css',
   shadow: true,
 })
+
 export class MsAmbulanceWlList {
   @Event({ eventName: "entry-clicked"}) entryClicked: EventEmitter<string>;
   @Prop() apiBase: string;
