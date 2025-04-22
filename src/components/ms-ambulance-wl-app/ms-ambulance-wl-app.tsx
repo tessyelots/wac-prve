@@ -37,31 +37,31 @@ export class MsAmbulanceWlApp {
   }
   render() {
     let element = "list"
-  let entryId = "@new"
+    let entryId = "@new"
 
-  if ( this.relativePath.startsWith("entry/"))
-  {
-    element = "editor";
-    entryId = this.relativePath.split("/")[1]
+    if ( this.relativePath.startsWith("entry/"))
+    {
+      element = "editor";
+      entryId = this.relativePath.split("/")[1]
+    }
+
+    const navigate = (path:string) => {
+      const absolute = new URL(path, new URL(this.basePath, document.baseURI)).pathname;
+      window.navigation.navigate(absolute)
+    }
+
+    return (
+      <Host>
+        { element === "editor"
+        ? <ms-ambulance-wl-editor entry-id={entryId}
+            ambulance-id={this.ambulanceId} api-base={this.apiBase}
+            oneditor-closed={ () => navigate("./list")} >
+          </ms-ambulance-wl-editor>
+        : <ms-ambulance-wl-list ambulance-id={this.ambulanceId} api-base={this.apiBase} onentry-clicked={ (ev: CustomEvent<string>)=> navigate("./entry/" + ev.detail) } >
+          </ms-ambulance-wl-list>
+        }
+
+      </Host>
+    );
   }
-
-  const navigate = (path:string) => {
-    const absolute = new URL(path, new URL(this.basePath, document.baseURI)).pathname;
-    window.navigation.navigate(absolute)
-  }
-
-  return (
-    <Host>
-      { element === "editor"
-      ? <ms-ambulance-wl-editor entry-id={entryId}
-          ambulance-id={this.ambulanceId} api-base={this.apiBase}
-          oneditor-closed={ () => navigate("./list")} >
-        </ms-ambulance-wl-editor>
-      : <ms-ambulance-wl-list ambulance-id={this.ambulanceId} api-base={this.apiBase} onentry-clicked={ (ev: CustomEvent<string>)=> navigate("./entry/" + ev.detail) } >
-        </ms-ambulance-wl-list>
-      }
-
-    </Host>
-  );
-}
 }
